@@ -1,6 +1,8 @@
 FROM docker.io/bitnami/minideb:buster
 LABEL maintainer "Bitnami <containers@bitnami.com>"
 
+CMD ["composer", "config", "--global", "--auth", "$REPMAN_SALAMANDER_AUTH_URL", "token", "$REPMAN_SALAMANDER_TOKEN"]
+
 ENV PATH="/opt/bitnami/python/bin:/opt/bitnami/php/bin:/opt/bitnami/php/sbin:/opt/bitnami/node/bin:/opt/bitnami/common/bin:/opt/bitnami/nami/bin:$PATH"
 
 ARG REPMAN_SALAMANDER_AUTH_URL="${REPMAN_SALAMANDER_AUTH_URL}"
@@ -35,5 +37,4 @@ EXPOSE 3000
 WORKDIR /app
 USER bitnami
 ENTRYPOINT [ "/app-entrypoint.sh" ]
-CMD ["composer", "config", "--global", "--auth", "$REPMAN_SALAMANDER_AUTH_URL", "token", "$REPMAN_SALAMANDER_TOKEN"]
 CMD [ "php", "artisan", "serve", "--host=0.0.0.0", "--port=3000" ]
