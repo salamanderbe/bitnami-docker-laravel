@@ -1,8 +1,8 @@
 FROM docker.io/bitnami/minideb:buster
 LABEL maintainer "Bitnami <containers@bitnami.com>"
 
-ARG REPMAN_SALAMANDER_AUTH_URL=$REPMAN_SALAMANDER_AUTH_URL
-ARG REPMAN_SALAMANDER_TOKEN=$REPMAN_SALAMANDER_TOKEN
+ARG REPMAN_SALAMANDER_AUTH_URL
+ARG REPMAN_SALAMANDER_TOKEN
 
 ENV PATH="/opt/bitnami/python/bin:/opt/bitnami/php/bin:/opt/bitnami/php/sbin:/opt/bitnami/node/bin:/opt/bitnami/common/bin:/opt/bitnami/nami/bin:$PATH"
 
