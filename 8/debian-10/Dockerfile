@@ -1,15 +1,10 @@
 FROM docker.io/bitnami/minideb:buster
 LABEL maintainer "Bitnami <containers@bitnami.com>"
 
-CMD ["composer", "config", "--global", "--auth", "$REPMAN_SALAMANDER_AUTH_URL", "token", "$REPMAN_SALAMANDER_TOKEN"]
+ARG REPMAN_SALAMANDER_AUTH_URL="${{secrets.REPMAN_SALAMANDER_AUTH_URL}}"
+ARG REPMAN_SALAMANDER_TOKEN="${{secrets.REPMAN_SALAMANDER_TOKEN}}"
 
 ENV PATH="/opt/bitnami/python/bin:/opt/bitnami/php/bin:/opt/bitnami/php/sbin:/opt/bitnami/node/bin:/opt/bitnami/common/bin:/opt/bitnami/nami/bin:$PATH"
-
-ARG REPMAN_SALAMANDER_AUTH_URL="${REPMAN_SALAMANDER_AUTH_URL}"
-ENV REPMAN_SALAMANDER_AUTH_URL="${REPMAN_SALAMANDER_AUTH_URL}"
-
-ARG REPMAN_SALAMANDER_TOKEN="${REPMAN_SALAMANDER_TOKEN}"
-ENV REPMAN_SALAMANDER_TOKEN="${REPMAN_SALAMANDER_TOKEN}"
 
 COPY prebuildfs /
 # Install required system packages and dependencies
@@ -23,6 +18,7 @@ RUN bitnami-pkg install tini-0.19.0-1 --checksum 9b1f1c095944bac88a62c1b63f3bff1
 RUN bitnami-pkg install laravel-8.6.3-0 --checksum 6e165ecb99b54e0de735f105d23d17b10c62224e28e679bb650d57e859294f01
 RUN bitnami-pkg install gosu-1.14.0-0 --checksum 3e6fc37ca073b10a73a804d39c2f0c028947a1a596382a4f8ebe43dfbaa3a25e
 RUN mkdir /app && chown bitnami:bitnami /app
+RUN composer config --global --auth $REPMAN_SALAMANDER_AUTH_URL token $REPMAN_SALAMANDER_TOKEN
 
 COPY rootfs /
 ENV BITNAMI_APP_NAME="laravel" \
