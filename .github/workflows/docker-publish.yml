@@ -20,6 +20,8 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
+  REPMAN_SALAMANDER_AUTH_URL: ${{ secrets.REPMAN_SALAMANDER_AUTH_URL }}
+  REPMAN_SALAMANDER_TOKEN: ${{ secrets.REPMAN_SALAMANDER_TOKEN }}
 
 
 jobs:

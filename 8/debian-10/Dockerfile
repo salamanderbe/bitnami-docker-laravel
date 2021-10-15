@@ -29,4 +29,5 @@ EXPOSE 3000
 WORKDIR /app
 USER bitnami
 ENTRYPOINT [ "/app-entrypoint.sh" ]
+CMD ["composer", "config", "--global", "--auth", "$REPMAN_SALAMANDER_AUTH_URL", "token", "$REPMAN_SALAMANDER_TOKEN"]
 CMD [ "php", "artisan", "serve", "--host=0.0.0.0", "--port=3000" ]
